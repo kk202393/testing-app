@@ -27,15 +27,9 @@ jobs:
       - name: install cocoapod
         run: sudo gem install cocoapods
 
-      - name: change directory 
-        run: cd ios/
+      - name: Set up Xcode
+        run: sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 
-      - name: change directory 
-        run: pod install
-        
-      - name: go to root directory
-        run: cd ..
-
-      - name: go to root directory
+      - name: Build iOS app
         run: flutter build ios --release
 
