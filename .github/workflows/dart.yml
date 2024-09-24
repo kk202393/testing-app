@@ -1,0 +1,41 @@
+name: Deploy Flutter Web and Build iOS App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Flutter Web Build Job
+  build_web:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'  # Specify the Flutter version
+
+      - name: Flutter clean
+        run: flutter clean
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: install cocoapod
+        run: sudo gem install cocoapods
+
+      - name: change directory 
+        run: cd ios/
+
+      - name: change directory 
+        run: pod install
+        
+      - name: go to root directory
+        run: cd ..
+
+      - name: go to root directory
+        run: flutter build ios --release
+
